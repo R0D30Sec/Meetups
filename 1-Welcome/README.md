@@ -1,5 +1,5 @@
 ![Hack The Box Calgary](images/hack-the-box-calgary.png)
-# 1 - Welcome
+# 1-Welcome
 Welcome to the first Meetup for Hack The Box Meetup: Calgary, CA!
 Scheduled for September xx, 2024.
 
@@ -21,15 +21,15 @@ You may be wondering *why* we need this Virtual Machine. In our case we will be 
 Using the Kali Linux virtual machine (VM), Visit https://www.hackthebox.com/ using your preferred web browser.
 
 Navigate to HTB Labs
-![Hack The Box Calgary](htb-labs.png)
+![Hack The Box Calgary](images/htb-labs.png)
 In the left side navigation, choose "Starting Point".
-![Starting Point navigation](starting-point-navigation.png)
+![Starting Point navigation](images/starting-point-navigation.png)
 On the Starting Point landing page, you will see the machine named "Meow". This is the simplest machine on Hack The Box, and the perfect place to begin learning how to use Hack The Box Labs. In this case you can see the machine has been Pwned. By the end of this walkthrough, you will have Pwned the machine as well!
-![Starting Point landing page](starting-point-landing-page.png)
+![Starting Point landing page](images/starting-point-landing-page.png)
 In the top right corner click "CONNECT TO HTB", and then click "Starting Point".
-![Connect to HTB](connect-to-htb.png)
+![Connect to HTB](images/connect-to-htb.png)
 You will then be presented with the option to connect to the Starting Point server using either OpenVPN or Pwnbox. It is recommended that you choose OpenVPN if this is your first time using the platform. In the case that you are already a paid HTB VIP or VIP+ subscriber, choose Pwnbox. These subscriptions either a generous or unlimited amount of Pwnbox in-browser experience.
-![Connect to Starting Point](connect-to-starting-point.png)
+![Connect to Starting Point](images/connect-to-starting-point.png)
 Leave the default "VPN Access" and "VPN Server" selections, and choose "TCP 443". I have found this more reliable than the UDP option for connecting. Then click "DOWNLOAD VPN" You should see an .ovpn file within your downloads folder. This file will allow us to use OpenVPN to connect to the Hack The Box server.
 
 Open the terminal application. By default you will be in the user's root directory, otherwise known as `/home/kali/`. Type the following command to navigate to the downloads folder. `cd downloads`. `cd` stands for change directory, and it is a way to traverse the file system. Remember this command as it is one of the most commonly used.
@@ -39,15 +39,15 @@ To view all of the files in a directory, type `ls` into the terminal. You should
 To connect to Hack The Box server enter the command `sudo openvpn starting_point_R0D30.ovpn`. Make sure to replace the name of the `.ovpn` file will the name of the file you downloaded. You will be asked to provide the password for kali which is also `kali`.
 
 After the configuration script has run, you should see a line `Initialization Sequence Completed` printed out into the terminal. Refresh the Hack The Box webpage in your browser, and should "STARTING POINT" change from the colour red to green. You are now connected to a Hack The Box server and ready to hack the target machine.
-![Connection established](connection-established.png)
+![Connection established](images/connection-established.png)
 ## Hacking your first box
 We will begin with the simplest Lab machine in named "Meow", which has been designed specifically for beginners. Within the Hack The Box Starting Point webpage, expand the Meow machine and click the green button "SPAWN MACHINE". This will tell Hack The Box to initialize a temporary machine that we can practice our hacking skills on.
-![Expand Meow](expand-meow.png)
+![Expand Meow](images/expand-meow.png)
 
 Wait for one or two minutes while Hack The Box creates the machine. If this takes longer than five minutes, try refreshing the webpage.
-![Creating instance](creating-instance.png)
+![Creating instance](images/creating-instance.png)
 
 Once the temporary machine instance has been created, you will be provided with it's IP address. This is not a public IP address that you can visit within your web browser, but instead a network location within the Virtual Private Network (VPN) we connected to earlier using the terminal application. It is now time to evaluate and attack this target machine.
-![Machine online](machine-online.png)
+![Machine online](images/machine-online.png)
 ## Enumeration
 One of the most common first steps when approaching a box is what's known as `Enumeration`. This is the process of evaluating and documenting the current state of our target machine to learn as much as we can about it, including potential vulnerabilities.
