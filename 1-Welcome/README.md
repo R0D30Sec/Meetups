@@ -22,8 +22,9 @@ Using the Kali Linux virtual machine (VM), Visit https://www.hackthebox.com/ usi
 
 Navigate to HTB Labs
 ![Hack The Box Calgary](images/htb-labs.png)
-In the left side navigation, choose "Starting Point".
+In the left side navigation, choose "Starting Point".  
 ![Starting Point navigation](images/starting-point-navigation.png)
+
 On the Starting Point landing page, you will see the machine named "Meow". This is the simplest machine on Hack The Box, and the perfect place to begin learning how to use Hack The Box Labs. In this case you can see the machine has been Pwned. By the end of this walkthrough, you will have Pwned the machine as well!
 ![Starting Point landing page](images/starting-point-landing-page.png)
 In the top right corner click "CONNECT TO HTB", and then click "Starting Point".
@@ -36,7 +37,11 @@ Open the terminal application. By default you will be in the user's root directo
 
 To view all of the files in a directory, type `ls` into the terminal. You should see a file named something like `starting_point_R0D30.ovpn`. You should see your own Hack The Box username in the filename instead of `R0D30`.
 
-To connect to Hack The Box server enter the command `sudo openvpn starting_point_R0D30.ovpn`. Make sure to replace the name of the `.ovpn` file will the name of the file you downloaded. You will be asked to provide the password for kali which is also `kali`.
+To connect to Hack The Box server enter the following command. Make sure to replace the name of the `.ovpn` file will the name of the file you downloaded. You will be asked to provide the password for kali which is also `kali`.
+
+`sudo openvpn starting_point_R0D30.ovpn`
+
+Let's walk through that this command does.
 
 After the configuration script has run, you should see a line `Initialization Sequence Completed` printed out into the terminal. Refresh the Hack The Box webpage in your browser, and should "STARTING POINT" change from the colour red to green. You are now connected to a Hack The Box server and ready to hack the target machine.
 ![Connection established](images/connection-established.png)
@@ -50,4 +55,19 @@ Wait for one or two minutes while Hack The Box creates the machine. If this take
 Once the temporary machine instance has been created, you will be provided with it's IP address. This is not a public IP address that you can visit within your web browser, but instead a network location within the Virtual Private Network (VPN) we connected to earlier using the terminal application. It is now time to evaluate and attack this target machine.
 ![Machine online](images/machine-online.png)
 ## Enumeration
-One of the most common first steps when approaching a box is what's known as `Enumeration`. This is the process of evaluating and documenting the current state of our target machine to learn as much as we can about it, including potential vulnerabilities.
+Now that we have obtained the target IP address for our target, it's time to begin hacking. One of the most common first steps when approaching a box is what's known as `Enumeration`. This is the process of evaluating and documenting the current state of our target machine to learn as much as we can about it, including potential vulnerabilities.
+
+### Nmap
+To evaluate the current state of the target machine we will be using Nmap, which is a popular network scanner used to discover hosts and services by sending TCP/IP packets and analyzing the responses. Nmap allows us to detect open ports or services in a network that we can potentially exploit. Pay close attention to this next section because Nmap is one of the most used tools by penetration testers.
+
+Because Nmap is preinstalled on Kali Linux, we can begin using it immediately. Type the following command:
+
+`sudo nmap -sV {target IP address here from HTB platform}`
+
+So what did we just do? Remember that `sudo` allows us to run the command as superuser, also known as "root".
+
+`nmap` is a new command which allows us to active the application Nmap.
+
+`-sV` is known as a flag, which are parameters we can pass to the program we are running. You can tell this is a flag parameter because of the leading dash. Flags are a very common way of passing parameters into command-line programs, so remember the concept of flags if you want to progress as a developer or hacker. In this case the `-sV` flag in Nmap stands for “service version detection.” When you use this flag, Nmap not only identifies open ports on a target system but also attempts to determine the version of the services running on those ports. It does so by sending specific probes to the services and analyzing their responses. This information can be valuable for understanding the software stack and potential vulnerabilities. Keep in mind that service version detection can be noisy and may trigger alerts on some systems, so use it only when you are not worried about triggering intrusion detection on the target system.
+
+Finally, we pass the target IP address into Nmap so it knows what machine it should scan for open ports. Make sure to replace `{target IP address here from HTB platform}` with the IP address that was spawned in Hack The Box. Press enter and wait for Nmap to finish scanning and printing the results to the terminal window.
