@@ -1,7 +1,7 @@
 ![Hack The Box Calgary](images/hack-the-box-calgary.png)
 # 1-Welcome
 Welcome to the first Meetup for Hack The Box Meetup: Calgary, CA!
-Scheduled for September xx, 2024.
+Monday, September 23, 2024 6:00 PM to 8:00 PM MDT
 
 Opening presentation slides can be [found here](https://drive.google.com/file/d/1f_9qlvNIv0u6zQlfcMMGBMZHWtPUbztk/view?usp=sharing).
 # Meetup agenda
@@ -10,7 +10,7 @@ Opening presentation slides can be [found here](https://drive.google.com/file/d/
 3. Prizes? (~5 minutes - TBD by Hack The Box staff)
 4. Socialization (As long as anyone would like to stay afterwards)
 # Walkthrough
-To help those who are new to Hack The Box, we will be walking through how to connect the the platform and how to [pwn](https://www.merriam-webster.com/dictionary/pwn) the simplest box named "Meow", which is the first machine in Starting Point.
+To help those who are new to Hack The Box, we will be walking through how to connect the the platform and how to [pwn](https://www.merriam-webster.com/dictionary/pwn) the simplest box named "Meow", which is the first machine in the Starting Point labs.
 ## Setting up a Virtual Machine
 The recommended and most cost effective way to connect to Hack The Box is by using a Virtual Machine. If you have never heard of the term "Virtual Machine" before, think of it as a full computer and operating system that you can interact with inside of another windowed application on your computer. There is much more to understand about Virtual Machines, but that is enough of an understanding to get up and running with Hack The Box.
 You may be wondering *why* we need this Virtual Machine. In our case we will be installing the Linux operating system within the virtual machine. Specifically a distribution of Linux named Kali Linux, which is designed for digital forensics, penetration testing, and ethical hacking. Kali Linux will be the operating system and toolkit we will use to play Hack The Box. Follow the steps below to install Kali Linux. Once you are finished, you may want to explore the [Linux Fundamentals]([Linux Fundamentals Course | HTB Academy (hackthebox.com)](https://academy.hackthebox.com/course/preview/linux-fundamentals))module on Hack The Box Academy if you are brand new to Linux. There are also countless resources available online to help you learn all about Linux and how to use it.
@@ -18,7 +18,7 @@ You may be wondering *why* we need this Virtual Machine. In our case we will be 
 2. Visit [this page]([Get Kali | Kali Linux](https://www.kali.org/get-kali/#kali-virtual-machines))to download a pre-built Kali Linux virtual machine. Make sure to pick the 64-bit Virtual Box. Follow [this video](https://youtu.be/vnX1NaF4K-Q?si=CaBKJJGIF3HaEePo)to install Kali Linux using Virtual Box.
 3. After you install both Virtual Box and Kali Linux, you will be ready to play Hack The Box.
 ## Connect to Hack The Box (HTB) Lab Machine
-Using the Kali Linux virtual machine (VM), Visit https://www.hackthebox.com/ using your preferred web browser.
+Using the Kali Linux virtual machine (VM), visit https://www.hackthebox.com/ using your preferred web browser.
 
 Navigate to HTB Labs
 ![Hack The Box Calgary](images/htb-labs.png)
@@ -35,7 +35,7 @@ Leave the default "VPN Access" and "VPN Server" selections, and choose "TCP 443"
 
 Open the terminal application. By default you will be in the user's root directory, otherwise known as `/home/kali/`. Type the following command to navigate to the downloads folder. `cd downloads`. `cd` stands for change directory, and it is a way to traverse the file system. Remember this command as it is one of the most commonly used.
 
-To view all of the files in a directory, type `ls` into the terminal. You should see a file named something like `starting_point_R0D30.ovpn`. You should see your own Hack The Box username in the filename instead of `R0D30`.
+To view all of the files in a directory, type `ls` into the terminal. The `ls` command lists all the files in the current directory. You should see a file named something like `starting_point_R0D30.ovpn`,  but instead you will see your own Hack The Box username in the filename instead of `R0D30`.
 
 To connect to Hack The Box server enter the following command. Make sure to replace the name of the `.ovpn` file will the name of the file you downloaded. You will be asked to provide the password for kali which is also `kali`.
 
@@ -70,4 +70,30 @@ So what did we just do? Remember that `sudo` allows us to run the command as sup
 
 `-sV` is known as a flag, which are parameters we can pass to the program we are running. You can tell this is a flag parameter because of the leading dash. Flags are a very common way of passing parameters into command-line programs, so remember the concept of flags if you want to progress as a developer or hacker. In this case the `-sV` flag in Nmap stands for “service version detection.” When you use this flag, Nmap not only identifies open ports on a target system but also attempts to determine the version of the services running on those ports. It does so by sending specific probes to the services and analyzing their responses. This information can be valuable for understanding the software stack and potential vulnerabilities. Keep in mind that service version detection can be noisy and may trigger alerts on some systems, so use it only when you are not worried about triggering intrusion detection on the target system.
 
-Finally, we pass the target IP address into Nmap so it knows what machine it should scan for open ports. Make sure to replace `{target IP address here from HTB platform}` with the IP address that was spawned in Hack The Box. Press enter and wait for Nmap to finish scanning and printing the results to the terminal window.
+Finally, we pass the target IP address into Nmap so it knows what machine it should scan for open ports. Make sure to replace `{target IP address here from HTB platform}` with the IP address that was spawned in Hack The Box. Press enter and wait for Nmap to finish scanning and printing the results to the terminal window. You should see the following results:
+![Nmap](images/nmap.png)
+Nmap has identified that port 23/tcp is in an open state. Port 23 is the default port for Telnet, which is computer networking protocol that allows us to access remote systems over the Internet. This may be a possible vulnerability, so let's attempt to connect to this box using Telnet using the following command:
+
+`telnet {target IP address here from HTB platform}`
+
+You should see the following output prompting you to login:
+![Telnet](images/telnet-1.png)
+
+When hacking answers are not immediately obvious, and we want to try anything we can possibly think of to get into the box. One idea you might consider is a configuration mistake made by an administrator to set a password for a system. In some cases, this configuration may have been forgotten, and checking for blank passwords is a technique you may want to consider whenever you are presented with a username and password combination to guess.
+
+Here are some common admin usernames you can attempt with a blank password.
+- admin
+- administrator
+- root
+
+![Telnet](images/telnet-2.png)
+
+Neither "admin" or "administrator" worked, let's try "root".
+
+![Telnet](images/telnet-3.png)
+
+"root" worked, and we weren't even asked for a password! This is the part where you say "I'm in" using your best hacker voice.
+
+![Im in](images/im-in.jpeg)
+
+But we aren't finished yet!
